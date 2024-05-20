@@ -1,0 +1,16 @@
+services:
+  test-dotnet-queue-subscriber:
+    build:
+      target: development
+    image: test-dotnet-queue-subscriber-development
+    container_name: test-dotnet-queue-subscriber-test
+    user: root
+    entrypoint: sh -c "cd /home/dotnet && chown -R dotnet:dotnet . && su dotnet -c 'dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=./test-output/'"
+    volumes:
+      - ./Test.Dotnet.Queue.Subscriber.sln:/home/dotnet/Test.Dotnet.Queue.Subscriber.sln
+      - ./src/Test.Dotnet.Queue.Subscriber.Core:/home/dotnet/src/Test.Dotnet.Queue.Subscriber.Core
+      - ./test/Test.Dotnet.Queue.Subscriber.Core.Tests:/home/dotnet/test/Test.Dotnet.Queue.Subscriber.Core.Tests
+      - ./src/Test.Dotnet.Queue.Subscriber.Api:/home/dotnet/src/Test.Dotnet.Queue.Subscriber.Api
+      - ./test/Test.Dotnet.Queue.Subscriber.Api.Tests:/home/dotnet/test/Test.Dotnet.Queue.Subscriber.Api.Tests
+      - ./test/Test.Dotnet.Queue.Subscriber.Api.Tests/test-output:/home/dotnet/test/Test.Dotnet.Queue.Subscriber.Api.Tests/test-output
+      - ./test/Test.Dotnet.Queue.Subscriber.Core.Tests/test-output:/home/dotnet/test/Test.Dotnet.Queue.Subscriber.Core.Tests/test-output

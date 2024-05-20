@@ -1,0 +1,10 @@
+services:
+  test-dotnet-queue-subscriber:
+    build:
+      context: .
+      target: production
+    image: test-dotnet-queue-subscriber
+    container_name: test-dotnet-queue-subscriber
+    environment:
+      AppInsights__ConnectionString: ${APPINSIGHTS_CONNECTIONSTRING}
+      AppInsights__CloudRole: test-dotnet-queue-subscriber-local

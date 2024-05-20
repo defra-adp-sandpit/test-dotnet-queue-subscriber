@@ -1,0 +1,11 @@
+{{- include "adp-helm-library.deployment" (list . "test-dotnet-queue-subscriber.deployment") -}}
+{{- define "test-dotnet-queue-subscriber.deployment" -}}
+spec:
+  template:
+    spec:
+      containers:
+      - {{ include "adp-helm-library.container" (list . "test-dotnet-queue-subscriber.container") }}
+      volumes:
+      - name: {{ .Values.volumeMounts.name }}
+        emptyDir: {}
+{{- end -}}
